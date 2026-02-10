@@ -1,3 +1,11 @@
+{{!-- Custom SimpleLogin Button Section --}}
+<div class="custom-social-login">
+    <button type="button" class="sl-custom-btn" onclick="redirectToSimpleLogin()">
+        <img src="https://simplelogin.io/press/logo.svg" width="20" style="margin-right:10px;">
+        Sign in with SimpleLogin
+    </button>
+</div>
+
 <div id="login">
   {{{card}}}
 
@@ -6,3 +14,45 @@
     {{> (extraPartial) }}
   {{/if}}
 </div>
+
+{{!-- CSS Styling --}}
+<style>
+.custom-social-login {
+    margin-bottom: 20px;
+    padding: 0 8px; /* Aligns with the card edges */
+}
+.sl-custom-btn {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background 0.2s ease;
+}
+.sl-custom-btn:hover {
+    background-color: #1a252f;
+}
+</style>
+
+{{!-- Logic to Bridge with Kratos --}}
+<script>
+function redirectToSimpleLogin() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const flowId = urlParams.get('flow');
+    const kratosUrl = "https://kratos-hydra.up.railway.app";
+
+    if (!flowId) {
+        window.location.href = `${kratosUrl}/self-service/login/browser?provider=simplelogin`;
+        return;
+    }
+
+    window.location.href = `${kratosUrl}/self-service/methods/oidc/auth/${flowId}?provider=simplelogin`;
+}
+</script>
