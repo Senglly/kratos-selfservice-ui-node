@@ -46,7 +46,7 @@
 function redirectToSimpleLogin() {
     const urlParams = new URLSearchParams(window.location.search);
     const flowId = urlParams.get('flow');
-    const kratosUrl = "https://kratos-hydra.up.railway.app";
+    const kratosUrl = "https://gateway-production-7363.up.railway.app";
 
     if (!flowId) {
         window.location.href = `${kratosUrl}/self-service/login/browser?provider=simplelogin`;
